@@ -4,10 +4,10 @@ import os
 import datetime
 
 # THESE MUST BE RESET EVERY TIME FOR NOW
-COGNITO_CLIENT_ID = "4rtf569eq2brgk3sq8ek4uqc91"
-UPLOAD_API_URL = "https://vo54qpw7fy4uarorbxnplilgae0hhwos.lambda-url.us-west-2.on.aws/"
-DOWNLOAD_API_URL = 'https://i5y2mfaoh3capmulqehouzcjya0zwedr.lambda-url.us-west-2.on.aws/' 
-QUERY_API_URL = 'https://stkjssplyeb5deqgn25wiaix2y0icvzg.lambda-url.us-west-2.on.aws/'
+COGNITO_CLIENT_ID = ""
+UPLOAD_API_URL = ""
+DOWNLOAD_API_URL = '' 
+QUERY_API_URL = ''
 
 USER_TOKEN = None
 LOGIN_TIME = None
