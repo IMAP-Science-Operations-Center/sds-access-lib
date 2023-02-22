@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  cdk-tests:
+  unit-tests:
     runs-on: ubuntu-latest
     defaults:
       run:
