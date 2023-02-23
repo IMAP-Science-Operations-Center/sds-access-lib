@@ -3,7 +3,7 @@ import json
 import os
 import datetime
 
-# THESE MUST BE RESET EVERY TIME FOR NOW
+# THESE MUST BE SET EVERY TIME FOR NOW UNTIL WE GET A ROUTE53
 COGNITO_CLIENT_ID = ""
 UPLOAD_API_URL = ""
 DOWNLOAD_API_URL = '' 
@@ -150,11 +150,3 @@ def upload(file_location, file_name, **kwargs):
         object_text = object_file.read()
     response = requests.put(response.json(), data=object_text)
     return response
-
-if __name__ == "__main__":
-    #x = upload(file_location='helloworld.txt', file_name='imap_l0_sci_mag_2024_2.pkts', testing='true')
-    #print(x)
-    #x = query(instrument='mag')
-    #print(x)
-    x = download("s3://sds-data-harter-asdfasdf/imap/l0/imap_l0_sci_mag_2024_2.pkts")
-    print(x)
