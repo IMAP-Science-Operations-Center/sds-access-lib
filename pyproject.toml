@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "IMAP Science Operations Center AWS data acccess"
 authors = ["IMAP SDS Developers <imap.sdc@lists.lasp.colorado.edu>"]
 readme = "README.md"
-license = "MIT"
+license = LICENSE
 keywords = ["IMAP", "SDC", "SOC", "SDS", "Science Operations"]
 classifiers = [
     "Development Status :: 3 - Alpha",
