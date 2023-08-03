@@ -2,7 +2,7 @@
 name = "sds-access-lib"
 version = "0.1.0"
 description = "IMAP Science Operations Center AWS data acccess"
-authors = [{name = "IMAP SDS Developers, email = "imap.sdc@lists.lasp.colorado.edu"}]
+authors = [{name = "IMAP SDS Developers", email = "imap.sdc@lists.lasp.colorado.edu"}]
 readme = "README.md"
 license = {text = "MIT"}
 keywords = ["IMAP", "SDC", "SOC", "SDS", "Science Operations"]
