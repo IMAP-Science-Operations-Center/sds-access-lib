@@ -27,6 +27,10 @@ classifiers = [
 homepage = "https://github.com/IMAP-Science-Operations-Center"
 repository = "https://github.com/IMAP-Science-Operations-Center/sds-access-lib"
 
+dependencies = [
+    "requests",
+]
+
 [project.optional-dependencies]
 test = [
     "black==21.9b0",
