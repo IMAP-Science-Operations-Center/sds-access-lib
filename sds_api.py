@@ -76,13 +76,15 @@ def _execute_api_get(endpoint, login, **kwargs):
     global API_URL
     if login:
         token = _get_user_token()
-        headers = {"Authorization": token} if token else {}
+        headers = {"Authorization": token}
+    else:
+        headers = {}
     query_parameters = []
     for kw in kwargs:
         query_parameters.append(kw + "=" + str(kwargs[kw]))
     query_parameters = '&'.join(query_parameters)
     url_with_parameters = API_URL + '/' + endpoint + "?" + query_parameters
-    
+    print(url_with_parameters)
     try:
         response = requests.get(url_with_parameters, headers=headers)
     except Exception as e:
@@ -90,7 +92,7 @@ def _execute_api_get(endpoint, login, **kwargs):
         return
     return response
 
-def download(filename, download_dir='', login=False):
+def download(filename, download_dir='.', login=False):
     '''
     This function is used to download files from the SDS.
     
