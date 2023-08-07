@@ -26,5 +26,5 @@ jobs:
         id: test
         run: |
           # Ignore the network marks from the remote test environment
-          pip install pytest
           python -m pytest --color=yes -m "not network"
+          

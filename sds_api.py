@@ -106,10 +106,10 @@ def download(filename, download_dir='.', login=False):
 
     if (download_url.status_code == 400):
         print("Not a valid S3 URI.  Example input: s3://bucket/path/file.ext")
-        return
+        return 
     elif (download_url.status_code == 404):
         print("No files were found matching the given URI.")
-        return
+        return 
 
     file_name_and_path = os.path.join(download_dir, filename[5:])
     download_dir = os.path.dirname(file_name_and_path)
@@ -121,7 +121,7 @@ def download(filename, download_dir='.', login=False):
         file_location = requests.get(download_url.json()["download_url"])
         file.write(file_location.content)
     
-    return file_location
+    return file_name_and_path
 
 def query(login = False, **kwargs):
     '''
@@ -134,12 +134,12 @@ def query(login = False, **kwargs):
     response = _execute_api_get(endpoint, login, **kwargs)
     return response.json()
 
-def upload(file_location, file_name, login=False, **kwargs):
+def upload(local_file_location, remote_file_name, login=False, **kwargs):
     '''
     This function is used to upload files to the SDS.  
     
-    :param file_location: The path to the file on the local machine to upload to the SDS.  
-    :param file_name: The name of the file you'd like to upload
+    :param local_file_location: The full filename and path to the file on the local machine to upload to the SDS.  
+    :param remote_file_name: The name of the file you'd like the uploaded file to be
     :param kwargs: Any additional key word arguments passed into this function are stored as tags on the SDS.
 
     :return: This returns a requests response object.  If the upload was successful, it'll be code 200.  
