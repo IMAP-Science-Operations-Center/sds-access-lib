@@ -157,7 +157,7 @@ def upload(local_file_location, remote_file_name, login=False, **kwargs):
               response.text)
         return
 
-    with open(file_location, 'rb') as object_file:
+    with open(local_file_location, 'rb') as object_file:
         object_text = object_file.read()
 
     response = requests.put(response.json(), data=object_text)
