@@ -12,9 +12,6 @@ USER_TOKEN = None
 LOGIN_TIME = None
 
 def _set_user_token(t):
-    global USER_TOKEN
-    global LOGIN_TIME
-
     LOGIN_TIME = datetime.datetime.now()
     USER_TOKEN = t
 
