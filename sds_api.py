@@ -153,8 +153,8 @@ def upload(local_file_location, remote_file_name, login=False, **kwargs):
     response = _execute_api_get(endpoint, login, filename=remote_file_name, **kwargs)
     
     if response.status_code != 200:
-        print(f"Could not generate an upload URL with the following error: 
-             {response.text}")
+        print("Could not generate an upload URL with the following error: " + 
+              response.text)
         return
 
     with open(file_location, 'rb') as object_file:
