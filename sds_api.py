@@ -20,8 +20,6 @@ def _set_user_token(t):
 
 
 def _get_user_token():
-    global USER_TOKEN
-    global LOGIN_TIME
     if LOGIN_TIME is None:
         print("New login needed.  Login is valid for 60 minutes.")
     elif (datetime.datetime.now() - LOGIN_TIME).total_seconds() >= 3600:
@@ -36,18 +34,18 @@ def _get_user_token():
 
 def get_sdc_token(user_name=None, password=None):
     '''
-    This function authenticates the user.  An access token is automatically stored in the USER_TOKEN
-    variable in this file, and functions will attempt to find a valid user token in that variable.
+    This function authenticates the user.  An access token is automatically stored in 
+    the USER_TOKEN variable in this file, and functions will attempt to find a valid 
+    user token in that variable.
 
     :param user_name: User's SDC username
     :param password: User's SDC password
 
-    :return: A string that also gets stored in the USER_TOKEN variable in this file.  You don't need this string unless
-             you plan on making your own API calls, using functions outside of this file.
+    :return: A string that also gets stored in the USER_TOKEN variable in this file.  
+             You don't need this string unless you plan on making your own API calls, 
+             using functions outside of this file.
     '''
-    global COGNITO_CLIENT_ID
-    global AWS_REGION
-    
+
     if user_name is None:
         user_name = input("Username:")
     if password is None:
@@ -55,14 +53,19 @@ def get_sdc_token(user_name=None, password=None):
         password = getpass.getpass("Password for " + user_name + ":")
 
     authentication_url = f"https://cognito-idp.{AWS_REGION}.amazonaws.com/"
-    authentication_headers = {'X-Amz-Target': 'AWSCognitoIdentityProviderService.InitiateAuth',
-                              'Content-Type': 'application/x-amz-json-1.1'}
+    authentication_headers = {
+        'X-Amz-Target': 'AWSCognitoIdentityProviderService.InitiateAuth',
+        'Content-Type': 'application/x-amz-json-1.1'
+        }
     data = json.dumps({"ClientId": COGNITO_CLIENT_ID, "AuthFlow": "USER_PASSWORD_AUTH",
-                       "AuthParameters": {"USERNAME": user_name, "PASSWORD": password}})
+                       "AuthParameters": 
+                       {"USERNAME": user_name, "PASSWORD": password}})
 
     # Attempt to grab the SDC token.
     try:
-        token_response = requests.post(authentication_url, data=data, headers=authentication_headers)
+        token_response = requests.post(authentication_url, 
+                                       data=data, 
+                                       headers=authentication_headers)
         t = token_response.json()['AuthenticationResult']['AccessToken']
     except KeyError:
         print("Invalid username and/or password.  Please try again.  ")
@@ -73,7 +76,6 @@ def get_sdc_token(user_name=None, password=None):
     return t    
 
 def _execute_api_get(endpoint, login, **kwargs):
-    global API_URL
     if login:
         token = _get_user_token()
         headers = {"Authorization": token}
@@ -138,11 +140,14 @@ def upload(local_file_location, remote_file_name, login=False, **kwargs):
     '''
     This function is used to upload files to the SDS.  
     
-    :param local_file_location: The full filename and path to the file on the local machine to upload to the SDS.  
+    :param local_file_location: The full filename and path to the file on the 
+                                local machine to upload to the SDS.  
     :param remote_file_name: The name of the file you'd like the uploaded file to be
-    :param kwargs: Any additional key word arguments passed into this function are stored as tags on the SDS.
+    :param kwargs: Any additional key word arguments passed into this function 
+                   are stored as tags on the SDS.
 
-    :return: This returns a requests response object.  If the upload was successful, it'll be code 200.  
+    :return: This returns a requests response object.  
+             If the upload was successful, it'll be code 200.  
     '''
     endpoint = 'upload'
     response = _execute_api_get(endpoint, login, filename=file_name, **kwargs)
