@@ -4,23 +4,40 @@ import os
 
 import requests
 
-# THESE MUST BE SET EVERY TIME FOR NOW UNTIL WE GET A DOMAIN
-AWS_REGION = "us-west-2"
-COGNITO_CLIENT_ID = ""
-API_URL = ""
+# CONFIGURATION
 
+# Enter in the URL of the API that we're testing.
+API_URL = ""  # ex - "https://api.prod.imap-mission.com"
+
+# When an authentication system is set up, these must be set to log in to the APIs
+AWS_REGION = ""  # ex - "us-west-2"
+COGNITO_CLIENT_ID = ""  # random string of letters assigned to the congito client
+
+# GLOBAL VARIABLES
+
+# These variables are set when a user is logged in.
 USER_TOKEN = None
 LOGIN_TIME = None
 
+# These variables are never changed
+EXPIRE_TIME = 3600
+STATUS_OK = 200
+STATUS_NOT_FOUND = 404
+STATUS_BAD_REQUEST = 400
+
 
 def _set_user_token(t):
-    datetime.datetime.now()
+    global LOGIN_TIME
+    global USER_TOKEN
+
+    LOGIN_TIME = datetime.datetime.now()
+    USER_TOKEN = t
 
 
 def _get_user_token():
     if LOGIN_TIME is None:
         print("New login needed.  Login is valid for 60 minutes.")
-    elif (datetime.datetime.now() - LOGIN_TIME).total_seconds() >= 3600:
+    elif (datetime.datetime.now() - LOGIN_TIME).total_seconds() >= EXPIRE_TIME:
         print("Login expired.  Please log in again.")
     else:
         return USER_TOKEN
@@ -111,10 +128,10 @@ def download(filename, download_dir=".", login=False):
     endpoint = "download"
     download_url = _execute_api_get(endpoint, login, s3_uri=filename)
 
-    if download_url.status_code == 400:
+    if download_url.status_code == STATUS_BAD_REQUEST:
         print("Not a valid S3 URI.  Example input: s3://bucket/path/file.ext")
         return
-    elif download_url.status_code == 404:
+    elif download_url.status_code == STATUS_NOT_FOUND:
         print("No files were found matching the given URI.")
         return
 
@@ -159,7 +176,7 @@ def upload(local_file_location, remote_file_name, login=False, **kwargs):
     endpoint = "upload"
     response = _execute_api_get(endpoint, login, filename=remote_file_name, **kwargs)
 
-    if response.status_code != 200:
+    if response.status_code != STATUS_OK:
         print(
             "Could not generate an upload URL with the following error: "
             + response.text
