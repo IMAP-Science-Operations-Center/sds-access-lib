@@ -1,0 +1,43 @@
+*.swp
+package-lock.json
+__pycache__
+.pytest_cache
+.venv
+.env
+*.egg-info
+.aws
+external
+.idea/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+aws
+awscliv2.zip
+cdk.context.json
+
+# Individual development CDK apps
+app*dev.py
+
+# Sphinx documentation
+docs/build/

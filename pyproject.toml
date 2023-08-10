@@ -1,0 +1,62 @@
+[project]
+name = "sds-access-lib"
+version = "0.1.0"
+description = "IMAP Science Operations Center AWS data acccess"
+authors = [{name = "IMAP SDS Developers", email = "imap.sdc@lists.lasp.colorado.edu"}]
+readme = "README.md"
+license = {text = "MIT"}
+keywords = ["IMAP", "SDC", "SOC", "SDS", "Science Operations"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: SDS Users",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development",
+    "Topic :: Scientific/Engineering",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Operating System :: MacOS",
+]
+dependencies = [
+    "requests",
+]
+
+[project.urls]
+homepage = "https://github.com/IMAP-Science-Operations-Center"
+repository = "https://github.com/IMAP-Science-Operations-Center/sds-access-lib"
+
+
+[project.optional-dependencies]
+test = [
+    "black==21.9b0",
+    "pre-commit==2.15.0",
+    "mypy==0.910",
+    "pytest==6.2.5",
+    "pytest-cov==3.0.0",
+    "requests-mock",
+]
+
+[tool.pytest.ini_options]
+testpaths = [
+  "tests",
+]
+addopts = "-ra"
+markers = [
+    "network: Test that requires network access",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning:importlib*",
+    "ignore::DeprecationWarning:jsii*",
+]
+
+[tool.ruff]
+target-version = "py39"
+select = ["B", "E", "F", "I", "N", "W", "PL", "PT", "UP", "RUF"]
+# Ignore import sorting for now until lines_after_imports is respected
+# by ruff and we can replace isort
+ignore = ["PLW0603"]
