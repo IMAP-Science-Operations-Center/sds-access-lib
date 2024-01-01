@@ -3,7 +3,7 @@ ci:
   autoupdate_schedule: 'quarterly'
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: check-added-large-files
       - id: detect-aws-credentials
@@ -14,11 +14,11 @@ repos:
       - id: no-commit-to-branch
         args: [--branch, main]
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 23.12.1
     hooks:
     - id: black
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 'v0.0.276'
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: 'v0.1.9'
     hooks:
     - id: ruff
       args: [--fix]
